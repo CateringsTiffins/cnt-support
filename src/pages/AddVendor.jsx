@@ -243,10 +243,14 @@ const AddVendor = () => {
                 <span className="visually-hidden">Loading...</span>
               </Spinner>
             ) : (
-              !selectedLocation && (
-                placePredictions?.map((item, index) => (
-                  <h2 className='ct-box-search-results cursor-pointer' key={index} onClick={() => selectLocation(item)}>{item?.description}</h2>
-                ))
+              !selectedLocation && manualLocation && placePredictions.length === 0 ? (
+                <p className='ct-box-search-loc mb-1'>No results found.</p>
+              ) : (
+                !selectedLocation && (
+                  placePredictions?.map((item, index) => (
+                    <h2 className='ct-box-search-results cursor-pointer' key={index} onClick={() => selectLocation(item)}>{item?.description}</h2>
+                  ))
+                )
               )
             )}
           </Col>
