@@ -84,7 +84,7 @@ const FollowUpsUpdateComment = () => {
           <IoMdArrowRoundBack /> Back
         </button>
       </div>
-        <h1 className="mb-4">FollowUp Updates</h1>
+        <h1 className="mb-4">FollowUp Update</h1>
 
 
         <hr className="mb-3 mt-3" />
