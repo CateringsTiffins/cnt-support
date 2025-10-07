@@ -22,12 +22,15 @@ const FollowUpsUpdateComment = () => {
 
   const dispatch = useDispatch();
   const { id, companyId } = useParams();
-  const [activeAgent, setActiveAgent] = useState({})
+  // const [activeAgent, setActiveAgent] = useState({})
   const [comment, setComment] = useState("")
-  const [title, setTitle] = useState("")
+  // const [title, setTitle] = useState("")
 
-  console.log(agentVendorCommentsList, "agentVendorCommentsList agentVendorCommentsList ");
-  console.log(activeAgent, "activeAgent activeAgent ");
+  // console.log(id, "id id ");
+  
+
+  // console.log(agentVendorCommentsList, "agentVendorCommentsList agentVendorCommentsList ");
+  // console.log(activeAgent, "activeAgent activeAgent ");
 
 
   useEffect(() => {
@@ -39,29 +42,30 @@ const FollowUpsUpdateComment = () => {
     dispatch(fetchVendorShowDetailData(companyId));
   }, [dispatch, companyId]);
 
-  useEffect(() => {
-    if (agentVendorCommentsList?.length > 0) {
-      setActiveAgent(agentVendorCommentsList[0])
-    }
-  }, [agentVendorCommentsList]);
+  // useEffect(() => {
+  //   if (agentVendorCommentsList?.length > 0) {
+  //     setActiveAgent(agentVendorCommentsList[0])
+  //   }
+  // }, [agentVendorCommentsList]);
 
-  useEffect(() => {
-    if (activeAgent) {
-      setTitle(activeAgent.title || "");
-      setComment(activeAgent.comment || "");
-    }
-  }, [activeAgent]);
+  // useEffect(() => {
+  //   if (activeAgent) {
+  //     // setTitle(activeAgent.title || "");
+  //     setComment(activeAgent.comment || "");
+  //   }
+  // }, [activeAgent]);
 
-  const onHandleCommentSubmit = async (unid) => {
+  const onHandleCommentSubmit = async () => {
     const data = {
-      id: unid,
-      title,
+      vendor_id: id,
+      // title,
       comment: comment
     }
     try {
       await dispatch(updateAgentComment(data))
       dispatch(agentVendorComments(id));
       await dispatch(fetchSupportFollowUpssList());
+      setComment("")
     } catch (error) {
       console.log(error);
     }
@@ -95,15 +99,14 @@ const FollowUpsUpdateComment = () => {
                 <div className="my-3">
                   <div className="mt-4">
 
-                    {
-                      activeAgent?.is_editable === 1 ? <div>
+                    
+                      <div>
                         {agentVendorCommentsList?.length > 0 && (
                           <>
                             <div className="row ">
                               <div className="col-lg-12 mx-auto">
                                 {/* Title Input */}
-                                <div className="col-md-12 mb-3">
-                                  {/* <FloatingLabel label="Title"> */}
+                                {/* <div className="col-md-12 mb-3">
                                   <Form.Control
                                     value={title || ""}
                                     onChange={(e) => setTitle(e.target.value)}
@@ -111,8 +114,7 @@ const FollowUpsUpdateComment = () => {
                                     type="text"
                                     placeholder="Enter title"
                                   />
-                                  {/* </FloatingLabel> */}
-                                </div>
+                                </div> */}
 
                                 {/* Comment Input */}
                                 <div className="col-md-12 mb-3">
@@ -133,7 +135,7 @@ const FollowUpsUpdateComment = () => {
                                     style={{ color: '#fff' }}
                                     disabled={isLoading}
                                     className="btn bg-success"
-                                    onClick={() => onHandleCommentSubmit(activeAgent?.id)}
+                                    onClick={() => onHandleCommentSubmit()}
                                   >
                                     {isLoading ? 'Loading...' : "Update"}
                                   </button>
@@ -144,53 +146,13 @@ const FollowUpsUpdateComment = () => {
 
                           </>
                         )}
-                      </div> : <div>
-                        <Card
-                          variant="outlined"
-                          sx={{
-                            borderRadius: 3,
-                            mb: 2,
-                            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                          }}
-                        >
-                          <CardContent>
-                            <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1}>
-                              <Typography variant="h6" >
-                                {activeAgent.title ? activeAgent.title : 'N/A'}
-                              </Typography>
-                              <Chip
-                                label={activeAgent.admin_user_name}
-                                color={"success"}
-                                variant="outlined"
-                                size="small"
-                                sx={{
-                                  fontWeight: "bold",
-                                  textTransform: "capitalize",
-                                }}
-                              />
-                            </Stack>
-                            <Typography variant="body2" color="textSecondary" mb={2}>
-                              {activeAgent.comment ? (
-                                activeAgent.comment.split("\n").map((line, index) => (
-                                  <p key={index}>{line}</p>
-                                ))
-                              ) : (
-                                <p>N/A</p> // Display "N/A" if there is no comment
-                              )}
-                            </Typography>
-
-                            <Typography variant="caption" color="textSecondary">
-                              {moment(activeAgent.updated_at).format("M/D/YYYY, h:mm A")}
-                            </Typography>
-                          </CardContent>
-                        </Card>
-                      </div>
-                    }
+                      </div> 
+                    
 
 
                   </div>
                 </div>
-                {agentVendorCommentsList?.slice(1).map((comment) => (
+                {agentVendorCommentsList.map((comment) => (
                   <Card
                     variant="outlined"
                     sx={{
@@ -201,11 +163,11 @@ const FollowUpsUpdateComment = () => {
                   >
                     <CardContent>
                       <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1}>
-                        <Typography variant="h6" >
+                        {/* <Typography variant="h6" >
                           {comment.title ? comment.title : 'N/A'}
-                        </Typography>
+                        </Typography> */}
                         <Chip
-                          label={comment.admin_user_name}
+                          label={comment.admin_username}
                           color={"success"}
                           variant="outlined"
                           size="small"

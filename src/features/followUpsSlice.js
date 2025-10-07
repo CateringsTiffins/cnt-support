@@ -52,7 +52,7 @@ export const agentVendorComments = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const token = thunkAPI.getState().authSlice.token || localStorage.getItem('token');
-      const response = await api.get(`${BASE_URL}/support-list-agent-vendor-comments?vendor_id=${id}`, {
+      const response = await api.get(`${BASE_URL}/support-get-comments?vendor_id=${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -72,7 +72,7 @@ export const updateAgentComment = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const token = thunkAPI.getState().authSlice.token || localStorage.getItem('token');
-      const response = await api.post(`${BASE_URL}/support-update-comment-for-agent-to-vendor`, data, {
+      const response = await api.post(`${BASE_URL}/support-add-comment`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
