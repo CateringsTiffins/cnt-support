@@ -89,8 +89,8 @@ const FollowUpsUpdateComment = () => {
 
         <hr className="mb-3 mt-3" />
 
-        {
-          agentVendorCommentsList?.length > 0 ? <div>
+       
+          <div>
             <h1 className="mb-2 text-center"> Comments </h1>
             {isLoading ? (
               <LoadingAnimation />
@@ -101,7 +101,6 @@ const FollowUpsUpdateComment = () => {
 
                     
                       <div>
-                        {agentVendorCommentsList?.length > 0 && (
                           <>
                             <div className="row ">
                               <div className="col-lg-12 mx-auto">
@@ -145,7 +144,6 @@ const FollowUpsUpdateComment = () => {
 
 
                           </>
-                        )}
                       </div> 
                     
 
@@ -191,11 +189,8 @@ const FollowUpsUpdateComment = () => {
                 ))}
               </>
             )}
-          </div> : <>
-            <br />
-            <h1 className="mb-2 text-center">No assigned agents found for the given vendor</h1>
-          </>
-        }
+          </div> 
+    
 
 
       </div>
